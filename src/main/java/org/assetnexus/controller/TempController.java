@@ -1,7 +1,7 @@
 package org.assetnexus.controller;
 
 import lombok.extern.slf4j.Slf4j;
-import org.assetnexus.common.Result;
+import org.assetnexus.vo.ResponseVO;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class TempController {
 
     @GetMapping("/get")
-    public Result<String> test() throws Exception {
-        return Result.newSuccess("ok");
+    public ResponseVO<String> test() throws Exception {
+        return ResponseVO.newSuccess("ok");
     }
 }
