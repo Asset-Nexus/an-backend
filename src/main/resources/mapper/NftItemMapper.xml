@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.assetnexus.mapper.NftItemMapper">
+
+    <insert id="insert">
+        INSERT INTO nft_item
+    (head_id, author, `desc`, contract_address,from_address, authorized)
+    select #{request.id} as head_id,
+    #{request.author} as author,
+    #{request.desc} as `desc`,
+    #{request.contractAddress} as contract_address,
+    #{request.fromAddress} as from_address,
+    0 as authorized
+    from dual
+    </insert>
+    <update id="updateAuthorizeInfo">
+        update nft_item set authorized = 1 , to_address = #{request.toAddress} ,signature= #{request.signature}
+        where head_id = #{request.id}
+    </update>
+    <select id="queryAuthorizeAddressById" resultType="java.util.HashMap">
+        select from_address,to_address from nft_item where head_id = #{id}
+    </select>
+</mapper>

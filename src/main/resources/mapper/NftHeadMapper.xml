@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.assetnexus.mapper.NftHeadMapper">
+        <insert id="insert">
+               INSERT INTO asset_nexus.nft_head(id, title, file_url, tag, price,issue_flag)
+                select #{request.id,jdbcType=BIGINT} as id,
+                #{request.title,jdbcType=VARCHAR} as title,
+                #{request.fileUrl,jdbcType=VARCHAR} as file_url,
+                #{request.tag,jdbcType=VARCHAR} as tag,
+                #{request.price,jdbcType=DECIMAL} as price,
+                0 as issue_flag
+                from dual
+        </insert>
+    <update id="updateIssueFlagById">
+        update nft_head set issue_flag = 1 where id = #{id}
+    </update>
+
+    <select id="list" resultType="org.assetnexus.response.NftListResponse">
+                select id,title,tag,file_url ,price from nft_head
+                where issue_flag = 1
+                <if test="request.title != null and request.title != ''">
+                        and title like concat(#{request.title},'%')
+                </if>
+                <if test="request.tag != null and request.tag != ''">
+                        and tag like concat(#{request.tag},'%')
+                </if>
+                <if test="request.minPrice != null and request.minPrice != '' and request.maxPrice != null and request.maxPrice != ''">
+                        and price <![CDATA[ >= ]]> #{request.minPrice} and price <![CDATA[ <= ]]> #{request.maxPrice}
+                </if>
+        </select>
+        <select id="detail" resultType="org.assetnexus.response.NftDetailResponse">
+                select head.id,head.title,head.tag,head.file_url,head.price,
+                item.author,item.desc,item.contract_address,item.authorized,item.to_address
+                from nft_head head left join nft_item item on head.id = item.head_id
+                <where>
+                        <if test="id != null and id != ''">
+                                head.id = #{id}
+                        </if>
+                </where>
+        </select>
+</mapper>
