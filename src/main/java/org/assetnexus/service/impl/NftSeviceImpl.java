@@ -1,9 +1,12 @@
 package org.assetnexus.service.impl;
 
+import com.alibaba.fastjson2.JSON;
+import lombok.extern.slf4j.Slf4j;
 import org.assetnexus.mapper.NftHeadMapper;
 import org.assetnexus.mapper.NftItemMapper;
 import org.assetnexus.request.NftAuthorizeRequest;
 import org.assetnexus.request.NftCreateRequest;
+import org.assetnexus.request.NftIssueRequest;
 import org.assetnexus.request.NftListRequest;
 import org.assetnexus.response.NftDetailResponse;
 import org.assetnexus.response.NftListResponse;
@@ -20,6 +23,7 @@ import java.util.List;
  * @since 2024/4/25 12:33
  */
 @Service
+@Slf4j
 public class NftSeviceImpl implements NftService {
 
     @Autowired
@@ -46,8 +50,10 @@ public class NftSeviceImpl implements NftService {
     }
 
     @Override
-    public void issue(Long id) {
-        nftHeadMapper.updateIssueFlagById(id);
+    public int issue(NftIssueRequest param) {
+       int effectRows= nftHeadMapper.updateIssueFlagById(param);
+       log.info("issue方法,参数信息：{},影响的行数：{}", JSON.toJSONString(param),effectRows);
+       return effectRows;
     }
 
     @Override

@@ -4,6 +4,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import org.assetnexus.request.NftCreateRequest;
+import org.assetnexus.request.NftIssueRequest;
 import org.assetnexus.request.NftListRequest;
 import org.assetnexus.response.NftDetailResponse;
 import org.assetnexus.response.NftListResponse;
@@ -25,6 +26,6 @@ public interface NftHeadMapper {
 
     void insert(@Param("request") NftCreateRequest request);
 
-    void updateIssueFlagById(@Param("id")Long id);
+    int updateIssueFlagById(@Param("param") NftIssueRequest param);
 
 }

@@ -2,6 +2,7 @@ package org.assetnexus.service;
 
 import org.assetnexus.request.NftAuthorizeRequest;
 import org.assetnexus.request.NftCreateRequest;
+import org.assetnexus.request.NftIssueRequest;
 import org.assetnexus.request.NftListRequest;
 import org.assetnexus.response.NftDetailResponse;
 import org.assetnexus.response.NftListResponse;
@@ -19,7 +20,7 @@ public interface NftService {
 
     void create(NftCreateRequest request);
 
-    void issue(Long id);
+    int issue(NftIssueRequest param);
 
     void authorize(NftAuthorizeRequest request) throws Exception;
 }

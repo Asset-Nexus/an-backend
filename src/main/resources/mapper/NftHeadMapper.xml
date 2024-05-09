@@ -12,7 +12,7 @@
                 from dual
         </insert>
     <update id="updateIssueFlagById">
-        update nft_head set issue_flag = 1 where id = #{id}
+        update nft_head set issue_flag = 1 ,price = #{param.price} where id = #{param.id}
     </update>
 
     <select id="list" resultType="org.assetnexus.response.NftListResponse">
