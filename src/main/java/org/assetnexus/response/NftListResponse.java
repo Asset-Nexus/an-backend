@@ -16,5 +16,5 @@ public class NftListResponse implements Serializable {
     private String title;
     private String fileUrl;
     private String tag;
-    //private BigDecimal price;
+    private BigDecimal price;
 }
