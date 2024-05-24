@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.assetnexus.mapper.NftTradeMapper">
+
+
+    <insert id="buy" parameterType="org.assetnexus.request.NftBuyRequest">
+        INSERT INTO nft_trade (token_id,buyer_address,nft_address) VALUES( #{request.tokenId},#{request.buyerAddress},#{request.nftAddress})
+    </insert>
+    <select id="selectBoughtList" resultType="org.assetnexus.response.NftBoughtListResponse"
+            parameterType="java.lang.String">
+        select
+            c.title as title,
+            c.file_url as fileUrl,
+            c.tag as tag,
+            b.author as author,
+            b.`desc` as descr,
+            a.trade_time as tradeTime
+        from nft_trade a
+                 left join nft_item b on a.token_id=b.id
+                 left join nft_head c on b.head_id=c.id
+        where a.buyer_address=#{addr}
+        order by a.trade_time desc
+    </select>
+</mapper>

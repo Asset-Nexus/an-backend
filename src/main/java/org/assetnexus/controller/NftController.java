@@ -1,10 +1,8 @@
 package org.assetnexus.controller;
 
 import lombok.extern.slf4j.Slf4j;
-import org.assetnexus.request.NftAuthorizeRequest;
-import org.assetnexus.request.NftCreateRequest;
-import org.assetnexus.request.NftIssueRequest;
-import org.assetnexus.request.NftListRequest;
+import org.assetnexus.request.*;
+import org.assetnexus.response.NftBoughtListResponse;
 import org.assetnexus.response.NftDetailResponse;
 import org.assetnexus.response.NftListResponse;
 import org.assetnexus.service.NftService;
@@ -58,5 +56,15 @@ public class NftController {
     public ResponseVO authorize(@RequestBody NftAuthorizeRequest request) throws Exception {
         nftService.authorize(request);
         return ResponseVO.newSuccess();
+    }
+    @PostMapping("/buy")
+    public ResponseVO buy(@Valid@RequestBody NftBuyRequest request){
+        nftService.buy(request);
+        return ResponseVO.newSuccess();
+    }
+
+    @GetMapping("/bought/list/{addr}")
+    public ResponseVO<List<NftBoughtListResponse>> boughtList(@PathVariable("addr") String addr){
+        return ResponseVO.newSuccess(nftService.boughtList(addr));
     }
 }

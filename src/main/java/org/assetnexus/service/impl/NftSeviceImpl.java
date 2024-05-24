@@ -4,10 +4,9 @@ import com.alibaba.fastjson2.JSON;
 import lombok.extern.slf4j.Slf4j;
 import org.assetnexus.mapper.NftHeadMapper;
 import org.assetnexus.mapper.NftItemMapper;
-import org.assetnexus.request.NftAuthorizeRequest;
-import org.assetnexus.request.NftCreateRequest;
-import org.assetnexus.request.NftIssueRequest;
-import org.assetnexus.request.NftListRequest;
+import org.assetnexus.mapper.NftTradeMapper;
+import org.assetnexus.request.*;
+import org.assetnexus.response.NftBoughtListResponse;
 import org.assetnexus.response.NftDetailResponse;
 import org.assetnexus.response.NftListResponse;
 import org.assetnexus.service.NftService;
@@ -31,6 +30,9 @@ public class NftSeviceImpl implements NftService {
 
     @Autowired
     private NftItemMapper nftItemMapper;
+
+    @Autowired
+    private NftTradeMapper nftTradeMapper;
 
     @Override
     public List<NftListResponse> list(NftListRequest request) {
@@ -65,5 +67,17 @@ public class NftSeviceImpl implements NftService {
         }
         request.setToAddress(String.join(",", authorizeAddress.getOrDefault("from_address", ""), request.getToAddress()));
         nftItemMapper.updateAuthorizeInfo(request);
+    }
+
+    @Override
+    public void buy(NftBuyRequest request) {
+
+        nftTradeMapper.buy(request);
+
+    }
+
+    @Override
+    public List<NftBoughtListResponse> boughtList(String addr) {
+        return nftTradeMapper.selectBoughtList(addr);
     }
 }

@@ -1,9 +1,7 @@
 package org.assetnexus.service;
 
-import org.assetnexus.request.NftAuthorizeRequest;
-import org.assetnexus.request.NftCreateRequest;
-import org.assetnexus.request.NftIssueRequest;
-import org.assetnexus.request.NftListRequest;
+import org.assetnexus.request.*;
+import org.assetnexus.response.NftBoughtListResponse;
 import org.assetnexus.response.NftDetailResponse;
 import org.assetnexus.response.NftListResponse;
 
@@ -23,4 +21,9 @@ public interface NftService {
     int issue(NftIssueRequest param);
 
     void authorize(NftAuthorizeRequest request) throws Exception;
+
+    void buy(NftBuyRequest request);
+
+
+    List<NftBoughtListResponse> boughtList(String addr);
 }
