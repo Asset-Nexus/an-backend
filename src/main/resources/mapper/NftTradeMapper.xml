@@ -16,7 +16,7 @@
             b.`desc` as description,
             a.trade_time as tradeTime
         from nft_trade a
-                 left join nft_item b on a.token_id=b.id
+                 left join nft_item b on a.token_id=b.head_id
                  left join nft_head c on b.head_id=c.id
         where a.buyer_address=#{addr}
         order by a.trade_time desc
