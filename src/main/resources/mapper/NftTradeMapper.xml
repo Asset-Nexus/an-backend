@@ -13,7 +13,7 @@
             c.file_url as fileUrl,
             c.tag as tag,
             b.author as author,
-            b.`desc` as descr,
+            b.`desc` as description,
             a.trade_time as tradeTime
         from nft_trade a
                  left join nft_item b on a.token_id=b.id

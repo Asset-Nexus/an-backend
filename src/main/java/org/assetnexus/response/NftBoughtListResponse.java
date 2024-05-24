@@ -18,6 +18,6 @@ public class NftBoughtListResponse implements Serializable {
     private String fileUrl;
     private String tag;
     private String author;
-    private String desc;
+    private String description;
     private Date tradeTime;
 }
