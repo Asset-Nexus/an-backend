@@ -19,7 +19,7 @@ jobs:
       - name: 安装和配置Java环境  # 设置JDK
         uses: actions/setup-java@v4   # 使用GitHub官方的setup-java action，用于安装和配置Java环境
         with:
-          java-version: 8
+          java-version: 11
           distribution: "adopt"
           cache: maven
 
