@@ -70,9 +70,11 @@ public class NftSeviceImpl implements NftService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void buy(NftBuyRequest request) {
 
         nftTradeMapper.buy(request);
+        nftTradeMapper.updateIssueFlag(request.getTokenId());
 
     }
 

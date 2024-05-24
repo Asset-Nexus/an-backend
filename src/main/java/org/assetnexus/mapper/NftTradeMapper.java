@@ -19,4 +19,7 @@ public interface NftTradeMapper {
     void buy(@Param("request") NftBuyRequest request);
 
     List<NftBoughtListResponse> selectBoughtList(@Param("addr") String addr);
+
+
+    void updateIssueFlag(@Param("tokenId") String tokenId);
 }

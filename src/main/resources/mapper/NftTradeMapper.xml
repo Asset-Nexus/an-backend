@@ -6,6 +6,9 @@
     <insert id="buy" parameterType="org.assetnexus.request.NftBuyRequest">
         INSERT INTO nft_trade (token_id,buyer_address,nft_address) VALUES( #{request.tokenId},#{request.buyerAddress},#{request.nftAddress})
     </insert>
+    <update id="updateIssueFlag" parameterType="java.lang.String">
+        UPDATE nft_head SET issue_flag=0  WHERE id= #{tokenId}
+    </update>
     <select id="selectBoughtList" resultType="org.assetnexus.response.NftBoughtListResponse"
             parameterType="java.lang.String">
         select
